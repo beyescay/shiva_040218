@@ -4,6 +4,7 @@ from fake_useragent import UserAgent
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 import time
 
 #make browser
@@ -17,32 +18,60 @@ driver = webdriver.Chrome('/home/sarath/Documents/Shiva/shiva_040218/chromedrive
 driver.get('http://www.yelp.com')
 
 #find and click login icon
-#icon=driver.find_element_by_xpath('//*[@id="taplc_global_nav_action_profile_0"]/div/a[1]/span')
-#icon.click()
 
 
-def login():
-    icon=driver.find_element_by_id('header-log-in')
-    icon.click()
+print("Finding log in button")
+icon=driver.find_element_by_id('header-log-in')
+icon.click()
 
-    #find and switch to the popup frame
-    popup=driver.find_element_by_id('ajax-login')
-    driver.switch_to.frame(popup)
-    time.sleep(1)
+#print("Switching to pop up")
+#find and switch to the popup fram
 
-    #find and fill the email box
-    email=WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'email')))
-    email.send_keys('shivahw040218@gmail.com')
+print("Filling email")
 
-    #find and fill the password box
-    pswd=WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'password')))
-    pswd.send_keys('ilovecoding')
+wait = WebDriverWait(driver, 10)
 
-    #find and click the login button
-    button=WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'ybtn ybtn--primary ybtn--big submit ybtn-full')))
-    button.click()
+email=driver.find_elements_by_name("email")
+for element in email:
+    try:
+        element.send_keys('shivahw040218@gmail.com')
+    except:
+        pass
+
+password=driver.find_elements_by_name("password")
+for element in password:
+    try:
+        element.send_keys('ilovecoding')
+    except:
+        pass
+
+
+login=driver.find_elements_by_class_name('ybtn ybtn--primary ybtn--big submit ybtn-full')
+for button in login:
+    try:
+        button.click()
+    except:
+        pass
+
 
 """
+
+
+
+print("Filling password")
+#find and fill the password box
+pswd=WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'password')))
+pswd.send_keys('ilovecoding')
+
+print("Click log in")
+#find and click the login button
+button=WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, 'ybtn ybtn--primary ybtn--big submit ybtn-full')))
+button.click()
+
+def login():
+    pass
+
+
 #find and click the Restaurants button
 myElem = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, 'global-nav-restaurants')))
 
@@ -65,8 +94,8 @@ myElem = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLAS
 els=driver.find_elements_by_class_name('property_title')
 for el in els:
     print (el.text)
-
 """
+
 
 if __name__ == "__main":
     login()
