@@ -42,17 +42,20 @@ password=driver.find_elements_by_name("password")
 for element in password:
     try:
         element.send_keys('ilovecoding')
+        element.send_keys(Keys.TAB)
+        element.send_keys(Keys.RETURN)
     except:
         pass
 
 
+"""
 login=driver.find_elements_by_class_name('ybtn ybtn--primary ybtn--big submit ybtn-full')
 for button in login:
     try:
         button.click()
     except:
         pass
-
+"""
 
 """
 
